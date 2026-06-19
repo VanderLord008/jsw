@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Journey Palette</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="top-nav">
+      <div class="breadcrumbs">
+        <span>Edit Engagement Journey</span> &gt;
+        <strong id="journey-name-display">test454</strong> &gt;
+        <span>Journey Palette</span>
+      </div>
+      <div class="global-actions" style="display: flex; align-items: center">
+        <label
+          style="
+            margin-right: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+          "
+        >
+          <input
+            type="checkbox"
+            id="toggle-recommendations"
+            checked
+            style="
+              margin-right: 6px;
+              width: 16px;
+              height: 16px;
+              accent-color: #00a98f;
+            "
+          />
+          JSW
+        </label>
+        <select
+          id="specialty-selector"
+          class="form-input"
+          style="
+            margin-right: 15px;
+            padding: 6px 10px;
+            font-weight: bold;
+            color: #00a98f;
+            border-color: #00a98f;
+          "
+        >
+          <option value="cardiologists">Cardiologists</option>
+          <option value="oncologists">Oncologists</option>
+          <option value="endocrinologists">Endocrinologists</option>
+          <option value="neurologists">Neurologists</option>
+          <option value="primary-care-physicians">
+            Primary Care Physicians
+          </option>
+        </select>
+        <button class="btn primary" id="simulate-btn">▶ Simulate</button>
+        <button
+          class="btn secondary"
+          id="manage-initiative-btn"
+          style="margin-left: 10px"
+        >
+          Manage Initiative
+        </button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <h3>Tactic Library</h3>
+
+          <h4 class="tactic-category">Digital &amp; Remote</h4>
+          <ul class="draggable-list" id="tactic-list-digital">
+            <li class="tactic-item" draggable="true" data-type="webinar">
+              <span class="tactic-icon">💻</span> Webinar
+            </li>
+            <li class="tactic-item" draggable="true" data-type="tv">
+              <span class="tactic-icon">📺</span> TV Advertising
+            </li>
+          </ul>
+
+          <h4 class="tactic-category">In-Person &amp; Pharmacy</h4>
+          <ul class="draggable-list" id="tactic-list-pharmacy">
+            <li class="tactic-item" draggable="true" data-type="pharmacy-act">
+              <span class="tactic-icon">🏥</span> In-Pharmacy Activation
+            </li>
+            <li class="tactic-item" draggable="true" data-type="pharmacy-pro">
+              <span class="tactic-icon">💊</span> Pharmacy Promo
+            </li>
+            <li class="tactic-item" draggable="true" data-type="rep-calls">
+              <span class="tactic-icon">🤝</span> Pharmacy Rep Calls
+            </li>
+          </ul>
+
+          <h4 class="tactic-category">Literature</h4>
+          <ul class="draggable-list" id="tactic-list-lit">
+            <li class="tactic-item" draggable="true" data-type="hta">
+              <span class="tactic-icon">📄</span> HTA Materials
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Keys</h3>
+          <ul class="keys-list" id="keys-list">
+            <li class="key-item" data-key="echo">
+              <span class="dot dot-green"></span> Echo Tactic
+            </li>
+            <li class="key-item" data-key="next">
+              <span class="dot dot-blue"></span> Next Trigger
+            </li>
+            <li class="key-item" data-key="decision">
+              <span class="dot dot-purple"></span> Decision Split
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-tip">
+          Tip: Drag tactics onto the grid. Drag the right edge of a tactic to
+          stretch its duration.
+        </div>
+      </aside>
+
+      <main class="canvas">
+        <div class="canvas-controls">
+          <div
+            class="left-controls"
+            style="display: flex; align-items: center; gap: 20px"
+          >
+            <div class="channel-toggle">
+              Channels <span class="badge">2</span>
+            </div>
+            <div
+              class="initiative-filters"
+              id="initiative-filters"
+              style="border: none; padding: 0; background: transparent"
+            >
+              <!-- Filter pills populated via JS -->
+            </div>
+          </div>
+          <div class="view-controls">
+            <select class="view-selector" id="view-selector">
+              <option value="weekly">Weekly View</option>
+              <option value="quarterly" selected>Quarterly View</option>
+            </select>
+            <div class="timeline-nav">
+              <span class="date-label">Start:</span>
+              <input
+                type="date"
+                id="start-date"
+                class="date-picker"
+                value="2026-06-01"
+              />
+              <span class="date-label" style="margin-left: 10px">End:</span>
+              <input
+                type="date"
+                id="end-date"
+                class="date-picker"
+                value="2026-08-31"
+              />
+              <button
+                class="btn secondary"
+                id="manage-phases-btn"
+                style="margin-left: 15px; padding: 4px 8px"
+              >
+                Manage Phases
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-container" id="grid-container">
+          <svg id="connection-canvas" class="connection-canvas"></svg>
+          <div id="rules-container" class="rules-container"></div>
+
+          <div class="grid-header" id="grid-header"></div>
+
+          <div id="lanes-container" style="position: relative"></div>
+
+          <div class="empty-state" id="empty-state" style="display: none">
+            <div class="empty-icon">🎨</div>
+            <h3>Start Designing Your Journey</h3>
+            <p>
+              Add some channels to your palette to begin mapping out your
+              tactics.
+            </p>
+            <button
+              class="btn primary"
+              id="empty-state-add-btn"
+              style="margin-top: 15px"
+            >
+              Add Channels
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Channel Selection Modal -->
+    <div id="channel-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <h2>Add Channels</h2>
+        <div id="channel-list" class="channel-list">
+          <!-- Checkboxes will be injected here -->
+        </div>
+        <div class="modal-actions">
+          <button class="btn secondary" id="close-modal-btn">Cancel</button>
+          <button class="btn primary" id="confirm-channels-btn">
+            Add Selected
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manage Initiative Modal (List) -->
+    <div
+      id="manage-initiative-modal"
+      class="modal-overlay"
+      style="display: none"
+    >
+      <div class="modal-content" style="width: 700px; max-width: 90vw">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+          "
+        >
+          <h2>Manage Initiatives</h2>
+          <button class="btn primary" id="open-create-initiative-btn">
+            + Create Initiative
+          </button>
+        </div>
+
+        <div
+          class="initiative-list"
+          id="initiative-list"
+          style="max-height: 400px"
+        >
+          <!-- Existing initiatives will be listed here -->
+        </div>
+
+        <div class="modal-actions" style="margin-top: 20px">
+          <button class="btn secondary" id="close-initiative-modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Initiative Modal (Create/Edit) -->
+    <div id="edit-initiative-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <h2 id="edit-init-title">Create Initiative</h2>
+        <input type="hidden" id="edit-init-id" />
+
+        <div class="form-group">
+          <label>Initiative Name</label>
+          <input
+            type="text"
+            id="init-name"
+            class="form-input"
+            placeholder="e.g. Summer Push"
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Start Date</label>
+            <input type="date" id="init-start" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>End Date</label>
+            <input type="date" id="init-end" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Theme Color</label>
+          <input
+            type="color"
+            id="init-color"
+            class="form-input"
+            value="#3b82f6"
+            style="height: 40px; cursor: pointer"
+          />
+        </div>
+
+        <div class="modal-actions" style="margin-top: 25px">
+          <button class="btn secondary" id="close-edit-initiative-btn">
+            Cancel
+          </button>
+          <button class="btn primary" id="save-initiative-btn">
+            Save Initiative
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tactic Configuration Modal -->
+    <div id="tactic-config-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content" style="width: 750px; max-width: 95vw">
+        <h2>Configure Tactic</h2>
+        <input type="hidden" id="config-tactic-id" />
+
+        <div style="display: flex; gap: 30px">
+          <!-- Left Column -->
+          <div style="flex: 1; display: flex; flex-direction: column">
+            <div
+              class="form-group"
+              style="flex-direction: row; align-items: center; gap: 10px"
+            >
+              <input
+                type="checkbox"
+                id="tactic-is-standalone"
+                style="width: 18px; height: 18px"
+              />
+              <label for="tactic-is-standalone" style="margin-bottom: 0"
+                >Is this a standalone tactic?</label
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Tactic Date (Standalone only)</label>
+              <input type="date" id="tactic-date" class="form-input" disabled />
+            </div>
+
+            <div class="form-group">
+              <label>Associated Initiative</label>
+              <select id="tactic-initiative" class="form-input">
+                <option value="">None</option>
+                <!-- Options populated via JS -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Placeholder Name</label>
+              <input type="text" id="tactic-name" class="form-input" />
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div style="flex: 1; display: flex; flex-direction: column">
+            <div class="form-group" style="margin-bottom: 0">
+              <label>Service Line Dependencies</label>
+              <div style="display: flex; gap: 10px; margin-bottom: 10px">
+                <select
+                  id="service-line-select"
+                  class="form-input"
+                  style="flex: 1"
+                >
+                  <option value="">Add a service line...</option>
+                  <option value="Marketing Automation">
+                    Marketing Automation
+                  </option>
+                  <option value="Web">Web</option>
+                  <option value="Social">Social</option>
+                  <option value="CRM Content Creation">
+                    CRM Content Creation
+                  </option>
+                  <option value="Creative Design">Creative Design</option>
+                </select>
+                <select
+                  id="service-line-size-select"
+                  class="form-input"
+                  style="width: 140px"
+                >
+                  <option value="S">S (8-16 hours)</option>
+                  <option value="M" selected>M (16-24 hours)</option>
+                  <option value="L">L (24-40 hours)</option>
+                </select>
+                <button class="btn secondary" id="add-service-line-btn">
+                  Add
+                </button>
+              </div>
+              <div
+                id="service-line-list"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+                  max-height: 250px;
+                  overflow-y: auto;
+                  padding-right: 5px;
+                "
+              >
+                <!-- Rows will be injected here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 25px">
+          <button class="btn secondary" id="close-tactic-config-btn">
+            Cancel
+          </button>
+          <button class="btn primary" id="save-tactic-config-btn">
+            Save Configuration
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onboarding Tooltip -->
+    <div
+      id="onboarding-tooltip"
+      class="onboarding-tooltip"
+      style="display: none"
+    >
+      <div class="tooltip-content" id="onboarding-content"></div>
+      <button class="tooltip-close" id="onboarding-close">×</button>
+      <div class="tooltip-arrow" id="onboarding-arrow"></div>
+    </div>
+
+    <!-- Context Menu -->
+    <div id="context-menu" class="context-menu" style="display: none">
+      <div class="context-menu-item" id="ctx-edit-name">✏️ Rename Tactic</div>
+      <div class="context-menu-item" id="ctx-assign-init">
+        🏷️ Assign Initiative
+      </div>
+      <div class="context-menu-divider"></div>
+      <div class="context-menu-item" id="ctx-duplicate">📋 Duplicate</div>
+      <div class="context-menu-item danger" id="ctx-delete">🗑️ Delete</div>
+    </div>
+
+    <footer class="bottom-footer"></footer>
+
+    <!-- Business Rule Config Modal -->
+    <div id="rule-config-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <h2>Configure Business Rule</h2>
+        <input type="hidden" id="config-rule-conn-index" />
+
+        <div class="form-group">
+          <label>Rule Name (e.g. Wait 5 Days)</label>
+          <input
+            type="text"
+            id="rule-name"
+            class="form-input"
+            placeholder="Enter rule summary"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Description (Optional)</label>
+          <textarea
+            id="rule-description"
+            class="form-input"
+            rows="3"
+            placeholder="Enter detailed conditions..."
+          ></textarea>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 25px">
+          <button
+            class="btn danger"
+            id="delete-rule-btn"
+            style="margin-right: auto; display: none"
+          >
+            Remove Rule
+          </button>
+          <button class="btn secondary" id="close-rule-config-btn">
+            Cancel
+          </button>
+          <button class="btn primary" id="save-rule-config-btn">
+            Save Rule
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manage Phases Modal -->
+    <div id="phases-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content" style="width: 500px; max-width: 90vw">
+        <h2>Manage Phases</h2>
+        <div
+          id="phases-list"
+          class="phases-list"
+          style="max-height: 200px; overflow-y: auto; margin-bottom: 20px"
+        >
+          <!-- Phases injected here -->
+        </div>
+
+        <div
+          style="
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+          "
+        >
+          <h4 style="margin: 0 0 10px 0">Add New Phase</h4>
+          <div class="form-group">
+            <label>Phase Name</label>
+            <input
+              type="text"
+              id="new-phase-name"
+              class="form-input"
+              placeholder="e.g. Launch Week"
+            />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Start Date</label>
+              <input type="date" id="new-phase-start" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label>End Date</label>
+              <input type="date" id="new-phase-end" class="form-input" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Background Color</label>
+            <input
+              type="color"
+              id="new-phase-color"
+              class="form-input"
+              value="#3b82f6"
+              style="height: 40px; cursor: pointer"
+            />
+          </div>
+          <button
+            class="btn primary"
+            id="add-phase-submit-btn"
+            style="width: 100%; margin-top: 10px"
+          >
+            Add Phase
+          </button>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 25px">
+          <button class="btn secondary" id="close-phases-modal-btn">
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copilot Widget -->
+    <div id="copilot-widget" class="copilot-widget" style="display: none">
+      <div class="copilot-header">
+        <span class="copilot-icon">💡</span>
+        <h4>Next Best Action</h4>
+      </div>
+      <div class="copilot-body">
+        <div class="copilot-tactic-badge" id="copilot-tactic">Tactic</div>
+        <div class="copilot-timing" id="copilot-timing">Timing</div>
+        <p class="copilot-rationale" id="copilot-rationale">Rationale</p>
+        <button class="btn copilot-accept-btn" id="copilot-accept-btn">
+          ✓ Accept Suggestion
+        </button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
