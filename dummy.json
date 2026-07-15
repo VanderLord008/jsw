@@ -8,6 +8,7 @@
           "step": 1,
           "tacticType": "tv",
           "delayDays": 0,
+          "durationDays": 7,
           "connectionType": null,
           "rationale": "Start with broad TV Advertising to build initial awareness among Cardiologists regarding new lipid-lowering outcomes."
         },
@@ -15,6 +16,7 @@
           "step": 2,
           "tacticType": "webinar",
           "delayDays": 7,
+          "durationDays": 3,
           "connectionType": "next",
           "rationale": "Follow up 7 days after the TV campaign with a deep-dive Digital Webinar focusing on clinical trial data."
         },
@@ -22,6 +24,7 @@
           "step": 3,
           "tacticType": "rep-calls",
           "delayDays": 3,
+          "durationDays": 5,
           "connectionType": "echo",
           "rationale": "Reinforce the webinar content rapidly with an in-person Pharmacy Rep Call to answer specific clinical questions."
         },
@@ -29,6 +32,7 @@
           "step": 4,
           "tacticType": "pharmacy-act",
           "delayDays": 14,
+          "durationDays": 7,
           "connectionType": "next",
           "rationale": "Activate in-pharmacy displays two weeks later to capture prescribers near the point of care."
         },
@@ -36,6 +40,7 @@
           "step": 5,
           "tacticType": "hta",
           "delayDays": 30,
+          "durationDays": 3,
           "connectionType": "decision",
           "rationale": "Send HTA Materials as a follow-up for those who need health technology assessment documentation for formulary inclusion."
         }
@@ -48,6 +53,7 @@
           "step": 1,
           "tacticType": "hta",
           "delayDays": 0,
+          "durationDays": 5,
           "connectionType": null,
           "rationale": "Oncologists highly value clinical data and survival metrics. Always initiate contact with comprehensive HTA Materials."
         },
@@ -55,6 +61,7 @@
           "step": 2,
           "tacticType": "webinar",
           "delayDays": 14,
+          "durationDays": 3,
           "connectionType": "next",
           "rationale": "Allow 14 days for data review, then trigger a specialized clinical Webinar with key opinion leaders."
         },
@@ -62,6 +69,7 @@
           "step": 3,
           "tacticType": "rep-calls",
           "delayDays": 7,
+          "durationDays": 5,
           "connectionType": "echo",
           "rationale": "Schedule a specialized Rep Call 7 days after the webinar to discuss specific patient case studies."
         },
@@ -69,6 +77,7 @@
           "step": 4,
           "tacticType": "pharmacy-pro",
           "delayDays": 21,
+          "durationDays": 7,
           "connectionType": "next",
           "rationale": "Follow up with Pharmacy Promos targeting specific specialty pharmacies that handle oncology regimens."
         }
@@ -81,6 +90,7 @@
           "step": 1,
           "tacticType": "webinar",
           "delayDays": 0,
+          "durationDays": 3,
           "connectionType": null,
           "rationale": "Launch with a digital webinar to detail the latest guidelines on diabetes management."
         },
@@ -88,6 +98,7 @@
           "step": 2,
           "tacticType": "pharmacy-act",
           "delayDays": 10,
+          "durationDays": 7,
           "connectionType": "next",
           "rationale": "Deploy In-Pharmacy Activations focusing on patient adherence programs 10 days after the webinar."
         },
@@ -95,6 +106,7 @@
           "step": 3,
           "tacticType": "pharmacy-pro",
           "delayDays": 5,
+          "durationDays": 5,
           "connectionType": "echo",
           "rationale": "Send targeted Pharmacy Promos simultaneously to reinforce the adherence message."
         },
@@ -102,6 +114,7 @@
           "step": 4,
           "tacticType": "rep-calls",
           "delayDays": 14,
+          "durationDays": 5,
           "connectionType": "next",
           "rationale": "Deploy Rep Calls to discuss patient outcomes and address any pushback on the adherence program."
         },
@@ -109,6 +122,7 @@
           "step": 5,
           "tacticType": "tv",
           "delayDays": 30,
+          "durationDays": 10,
           "connectionType": "decision",
           "rationale": "Broaden the campaign to patient-focused TV advertising after securing prescriber buy-in."
         }
@@ -121,6 +135,7 @@
           "step": 1,
           "tacticType": "hta",
           "delayDays": 0,
+          "durationDays": 5,
           "connectionType": null,
           "rationale": "Start with HTA materials focusing on long-term efficacy and safety profiles for neuro-degenerative conditions."
         },
@@ -128,6 +143,7 @@
           "step": 2,
           "tacticType": "rep-calls",
           "delayDays": 7,
+          "durationDays": 5,
           "connectionType": "next",
           "rationale": "Follow up the HTA materials with an in-depth rep call to answer scientific questions."
         },
@@ -135,6 +151,7 @@
           "step": 3,
           "tacticType": "webinar",
           "delayDays": 21,
+          "durationDays": 3,
           "connectionType": "decision",
           "rationale": "Invite high-prescribing neurologists to an exclusive closed-door webinar."
         },
@@ -142,6 +159,7 @@
           "step": 4,
           "tacticType": "pharmacy-act",
           "delayDays": 14,
+          "durationDays": 7,
           "connectionType": "next",
           "rationale": "Initiate In-Pharmacy Activations focusing on specialty distribution networks."
         }
@@ -154,6 +172,7 @@
           "step": 1,
           "tacticType": "tv",
           "delayDays": 0,
+          "durationDays": 14,
           "connectionType": null,
           "rationale": "PCPs are high-volume targets. Start with TV Advertising to generate broad patient-driven inquiries."
         },
@@ -161,6 +180,7 @@
           "step": 2,
           "tacticType": "pharmacy-pro",
           "delayDays": 5,
+          "durationDays": 5,
           "connectionType": "next",
           "rationale": "Rapidly deploy Pharmacy Promos to capture the expected retail prescriptions."
         },
@@ -168,6 +188,7 @@
           "step": 3,
           "tacticType": "pharmacy-act",
           "delayDays": 5,
+          "durationDays": 7,
           "connectionType": "echo",
           "rationale": "Echo the promos with physical In-Pharmacy Activations to dominate share-of-voice."
         },
@@ -175,6 +196,7 @@
           "step": 4,
           "tacticType": "rep-calls",
           "delayDays": 10,
+          "durationDays": 5,
           "connectionType": "next",
           "rationale": "Follow up with brief Rep Calls to distribute sample kits to the clinics."
         },
@@ -182,6 +204,7 @@
           "step": 5,
           "tacticType": "webinar",
           "delayDays": 14,
+          "durationDays": 3,
           "connectionType": "next",
           "rationale": "Provide a brief, on-demand digital webinar focusing on simplified dosing guidelines."
         }
